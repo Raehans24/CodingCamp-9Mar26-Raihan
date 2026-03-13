@@ -314,3 +314,415 @@ section h2 {
 .timer-controls .btn-reset:hover:not(:disabled) {
   background-color: var(--text-tertiary);
 }
+
+/* ===================================
+   Task List Component Styles
+   =================================== */
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.task-form {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.task-input {
+  flex: 1;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: var(--font-size-base);
+  transition: border-color var(--transition-fast);
+}
+
+.task-input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+}
+
+.task-input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.btn-add-task {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background-color: var(--accent-primary);
+  color: white;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  transition: background-color var(--transition-fast);
+}
+
+.btn-add-task:hover {
+  background-color: var(--accent-hover);
+}
+
+.btn-add-task:active {
+  background-color: var(--accent-active);
+}
+
+.tasks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  transition: background-color var(--transition-fast), opacity var(--transition-fast);
+}
+
+.task:hover {
+  background-color: var(--bg-tertiary);
+}
+
+.task.completed {
+  opacity: 0.6;
+}
+
+.task-checkbox {
+  width: 1.25rem;
+  height: 1.25rem;
+  cursor: pointer;
+  accent-color: var(--accent-primary);
+}
+
+.task-text {
+  flex: 1;
+  color: var(--text-primary);
+  font-size: var(--font-size-base);
+  word-break: break-word;
+}
+
+.task.completed .task-text {
+  text-decoration: line-through;
+  color: var(--text-secondary);
+}
+
+.btn-edit,
+.btn-delete {
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  transition: background-color var(--transition-fast), opacity var(--transition-fast);
+}
+
+.btn-edit {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.btn-edit:hover {
+  background-color: var(--accent-primary);
+  color: white;
+}
+
+.btn-delete {
+  background-color: var(--bg-tertiary);
+  color: var(--error-color);
+}
+
+.btn-delete:hover {
+  background-color: var(--error-color);
+  color: white;
+}
+
+.empty-state {
+  text-align: center;
+  padding: var(--spacing-xl);
+  color: var(--text-tertiary);
+  font-size: var(--font-size-base);
+  font-style: italic;
+}
+
+/* ===================================
+   Quick Links Component Styles
+   =================================== */
+
+.quick-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.link-form {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.link-input-label,
+.link-input-url {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: var(--font-size-base);
+  transition: border-color var(--transition-fast);
+}
+
+.link-input-label {
+  flex: 1;
+  min-width: 150px;
+}
+
+.link-input-url {
+  flex: 2;
+  min-width: 200px;
+}
+
+.link-input-label:focus,
+.link-input-url:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+}
+
+.link-input-label::placeholder,
+.link-input-url::placeholder {
+  color: var(--text-tertiary);
+}
+
+.btn-add-link {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background-color: var(--accent-primary);
+  color: white;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  transition: background-color var(--transition-fast);
+}
+
+.btn-add-link:hover {
+  background-color: var(--accent-hover);
+}
+
+.btn-add-link:active {
+  background-color: var(--accent-active);
+}
+
+.links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.link-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-md);
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.link-item:hover {
+  background-color: var(--bg-tertiary);
+  box-shadow: var(--shadow-sm);
+}
+
+.link-item a {
+  flex: 1;
+  color: var(--accent-primary);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  word-break: break-word;
+  transition: color var(--transition-fast);
+}
+
+.link-item a:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}
+
+.link-item .btn-delete-link {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: var(--bg-tertiary);
+  color: var(--error-color);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  line-height: 1;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+  margin-left: var(--spacing-sm);
+}
+
+.link-item .btn-delete-link:hover {
+  background-color: var(--error-color);
+  color: white;
+}
+
+.error-message {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: rgba(244, 67, 54, 0.1);
+  border: 1px solid var(--error-color);
+  border-radius: var(--radius-md);
+  color: var(--error-color);
+  font-size: var(--font-size-sm);
+  margin-top: var(--spacing-sm);
+}
+
+/* ===================================
+   Error and Warning Styles
+   =================================== */
+
+.error-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--error-color);
+  color: white;
+  padding: var(--spacing-lg);
+  text-align: center;
+  z-index: 9999;
+  box-shadow: var(--shadow-md);
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.error-banner strong {
+  display: block;
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-sm);
+}
+
+.error-banner p {
+  margin: var(--spacing-sm) 0;
+}
+
+.error-banner small {
+  display: block;
+  margin-top: var(--spacing-sm);
+  opacity: 0.9;
+  font-size: var(--font-size-sm);
+}
+
+.component-error {
+  padding: var(--spacing-md);
+  background-color: rgba(244, 67, 54, 0.1);
+  border: 1px solid var(--error-color);
+  border-radius: var(--radius-md);
+  color: var(--error-color);
+  text-align: center;
+}
+
+.timer-error {
+  margin-bottom: var(--spacing-md);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ===================================
+   Responsive Design
+   =================================== */
+
+@media (max-width: 768px) {
+  .dashboard-header {
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+  
+  .dashboard-main {
+    padding: var(--spacing-lg);
+  }
+  
+  .greeting-component .time {
+    font-size: var(--font-size-2xl);
+  }
+  
+  .timer-display {
+    font-size: var(--font-size-2xl);
+  }
+  
+  .timer-controls {
+    flex-wrap: wrap;
+  }
+  
+  .timer-controls button {
+    flex: 1;
+    min-width: 80px;
+  }
+  
+  .task-form {
+    flex-direction: column;
+  }
+  
+  .task-input {
+    width: 100%;
+  }
+  
+  .btn-add-task {
+    width: 100%;
+  }
+  
+  .link-form {
+    flex-direction: column;
+  }
+  
+  .link-input-label,
+  .link-input-url {
+    width: 100%;
+    min-width: unset;
+  }
+  
+  .btn-add-link {
+    width: 100%;
+  }
+  
+  .links-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-header h1 {
+    font-size: var(--font-size-lg);
+  }
+  
+  .greeting-component .time {
+    font-size: var(--font-size-xl);
+  }
+  
+  .greeting-component .greeting {
+    font-size: var(--font-size-lg);
+  }
+  
+  .timer-display {
+    font-size: var(--font-size-xl);
+  }
+  
+  section {
+    padding: var(--spacing-md);
+  }
+}
