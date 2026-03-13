@@ -46,8 +46,8 @@ The implementation follows a bottom-up approach: starting with foundational util
     - **Post-completion**: Delete js/greeting-component.test.js, test-greeting.html, and any other test-related files after validation
     - **Post-completion**: Delete all test files and test directories after validation
 
-- [ ] 4. Implement Focus Timer Component
-  - [ ] 4.1 Create FocusTimer class with state management
+- [x] 4. Implement Focus Timer Component
+  - [x] 4.1 Create FocusTimer class with state management
     - Implement constructor, init(), start(), stop(), reset(), destroy() methods
     - Initialize state with duration: 1500, remaining: 1500, state: 'idle', intervalId: null
     - Add timer formatting function (MM:SS format)
@@ -58,7 +58,7 @@ The implementation follows a bottom-up approach: starting with foundational util
     - Render timer display and control buttons to DOM
     - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9_
   
-  - [ ]* 4.2 Write property tests for Focus Timer
+  - [x] 4.2 Write property tests for Focus Timer
     - **Property 4: Timer Display Format**
     - **Property 5: Timer State Button Consistency**
     - **Property 6: Timer Stop Preserves Time**
@@ -66,7 +66,7 @@ The implementation follows a bottom-up approach: starting with foundational util
     - **Validates: Requirements 2.4, 2.5, 2.7, 2.8, 2.9**
     - **Post-completion**: Delete all timer test files (e.g., js/focus-timer.test.js, test-timer.html) and any other test-related files after validation
 
-- [ ] 5. Checkpoint - Verify foundational components
+- [x] 5. Checkpoint - Verify foundational components
   - Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 6. Implement Task List Component

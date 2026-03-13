@@ -237,27 +237,207 @@ class GreetingComponent {
 
 class FocusTimer {
   constructor(containerElement) {
-    // Focus timer implementation will be added in task 4
+    this.container = containerElement;
+    this.state = {
+      duration: 1500,      // 25 minutes in seconds
+      remaining: 1500,     // Remaining time in seconds
+      state: 'idle',       // 'idle' | 'running' | 'paused'
+      intervalId: null     // setInterval reference
+    };
+    this.displayElement = null;
+    this.startButton = null;
+    this.stopButton = null;
+    this.resetButton = null;
   }
 
+  /**
+   * Initialize the focus timer component
+   * Creates DOM structure and sets up event listeners
+   */
   init() {
-    // TODO: Initialize timer
+    // Create timer display
+    this.displayElement = document.createElement('div');
+    this.displayElement.className = 'timer-display';
+    this.displayElement.textContent = this.formatTime(this.state.remaining);
+
+    // Create controls container
+    const controlsContainer = document.createElement('div');
+    controlsContainer.className = 'timer-controls';
+
+    // Create start button
+    this.startButton = document.createElement('button');
+    this.startButton.className = 'btn-start';
+    this.startButton.textContent = 'Start';
+    this.startButton.addEventListener('click', () => this.start());
+
+    // Create stop button
+    this.stopButton = document.createElement('button');
+    this.stopButton.className = 'btn-stop';
+    this.stopButton.textContent = 'Stop';
+    this.stopButton.disabled = true;
+    this.stopButton.addEventListener('click', () => this.stop());
+
+    // Create reset button
+    this.resetButton = document.createElement('button');
+    this.resetButton.className = 'btn-reset';
+    this.resetButton.textContent = 'Reset';
+    this.resetButton.addEventListener('click', () => this.reset());
+
+    // Append buttons to controls
+    controlsContainer.appendChild(this.startButton);
+    controlsContainer.appendChild(this.stopButton);
+    controlsContainer.appendChild(this.resetButton);
+
+    // Append elements to container
+    this.container.appendChild(this.displayElement);
+    this.container.appendChild(controlsContainer);
   }
 
+  /**
+   * Format seconds into MM:SS format
+   * @param {number} seconds - Time in seconds
+   * @returns {string} Formatted time string (e.g., "25:00", "04:32")
+   */
+  formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  }
+
+  /**
+   * Start the timer countdown
+   */
   start() {
-    // TODO: Start timer countdown
+    if (this.state.state === 'running') {
+      return; // Already running
+    }
+
+    this.state.state = 'running';
+    this.updateButtonStates();
+
+    // Start countdown interval
+    this.state.intervalId = setInterval(() => {
+      this.state.remaining--;
+
+      // Update display
+      this.displayElement.textContent = this.formatTime(this.state.remaining);
+
+      // Check if timer reached zero
+      if (this.state.remaining <= 0) {
+        this.complete();
+      }
+    }, 1000);
   }
 
+  /**
+   * Stop/pause the timer countdown
+   * Preserves the remaining time
+   */
   stop() {
-    // TODO: Stop/pause timer
+    if (this.state.state !== 'running') {
+      return; // Not running
+    }
+
+    // Clear the interval
+    if (this.state.intervalId !== null) {
+      clearInterval(this.state.intervalId);
+      this.state.intervalId = null;
+    }
+
+    this.state.state = 'paused';
+    this.updateButtonStates();
   }
 
+  /**
+   * Reset the timer to initial state
+   */
   reset() {
-    // TODO: Reset timer to initial state
+    // Clear any running interval
+    if (this.state.intervalId !== null) {
+      clearInterval(this.state.intervalId);
+      this.state.intervalId = null;
+    }
+
+    // Reset state
+    this.state.remaining = this.state.duration;
+    this.state.state = 'idle';
+
+    // Update display
+    this.displayElement.textContent = this.formatTime(this.state.remaining);
+    this.updateButtonStates();
   }
 
+  /**
+   * Handle timer completion
+   */
+  complete() {
+    // Clear the interval
+    if (this.state.intervalId !== null) {
+      clearInterval(this.state.intervalId);
+      this.state.intervalId = null;
+    }
+
+    // Set state to idle
+    this.state.state = 'idle';
+    this.state.remaining = 0;
+
+    // Update display
+    this.displayElement.textContent = this.formatTime(this.state.remaining);
+    this.updateButtonStates();
+
+    // Show completion notification
+    this.showNotification('Focus session complete! Time for a break.');
+  }
+
+  /**
+   * Show a notification message
+   * @param {string} message - The notification message
+   */
+  showNotification(message) {
+    // Use browser notification API if available and permitted
+    if ('Notification' in window && Notification.permission === 'granted') {
+      new Notification('Focus Timer', { body: message });
+    } else {
+      // Fallback to alert
+      alert(message);
+    }
+  }
+
+  /**
+   * Update button enabled/disabled states based on timer state
+   */
+  updateButtonStates() {
+    if (this.state.state === 'running') {
+      this.startButton.disabled = true;
+      this.stopButton.disabled = false;
+    } else {
+      // idle or paused
+      this.startButton.disabled = false;
+      this.stopButton.disabled = true;
+    }
+  }
+
+  /**
+   * Clean up the component
+   * Clears the interval and removes DOM elements
+   */
   destroy() {
-    // TODO: Clean up timer
+    // Clear any running interval
+    if (this.state.intervalId !== null) {
+      clearInterval(this.state.intervalId);
+      this.state.intervalId = null;
+    }
+
+    // Remove event listeners by removing elements
+    if (this.container) {
+      this.container.innerHTML = '';
+    }
+
+    // Clear references
+    this.displayElement = null;
+    this.startButton = null;
+    this.stopButton = null;
+    this.resetButton = null;
   }
 }
 
@@ -363,6 +543,28 @@ class DashboardController {
 
 // Initialize dashboard when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-  // Dashboard initialization will be implemented in task 10
-  console.log('Productivity Dashboard loaded - awaiting implementation');
+  // Initialize storage manager
+  const storageManager = new StorageManager();
+
+  // Check if storage is available
+  if (!storageManager.isAvailable()) {
+    alert('Local Storage is required for this application. Please enable it in your browser settings.');
+    return;
+  }
+
+  // Initialize greeting component
+  const greetingContainer = document.getElementById('greeting-container');
+  if (greetingContainer) {
+    const greeting = new GreetingComponent(greetingContainer);
+    greeting.init();
+  }
+
+  // Initialize focus timer component
+  const timerContainer = document.getElementById('timer-container');
+  if (timerContainer) {
+    const timer = new FocusTimer(timerContainer);
+    timer.init();
+  }
+
+  console.log('Productivity Dashboard initialized');
 });
